@@ -1,0 +1,46 @@
+code in java *************************************
+
+import java.util.*;
+class Solution
+{
+ 
+
+  static long scoreOfParentheses(String S)
+  {
+    Stack<String> s = new Stack<>();
+    int i = 0;
+    long ans = 0;
+    while (i < S.length())
+    {
+      if (S.charAt(i) == '(')
+        s.add("(");
+      else
+      {
+        if (s.peek() == "(")
+        {
+          s.pop();
+          s.add("3");
+        }
+        else
+        {
+          long count = 0;
+          while (s.peek() != "(")
+          {
+            count += Integer.parseInt(s.peek());
+            s.pop();
+          }
+          s.pop();
+          s.add(String.valueOf(3 * count));
+        }
+      }
+
+      i++;
+    }
+    while (!s.isEmpty())
+    {
+      ans += Integer.parseInt(s.peek());
+      s.pop();
+    }
+    return ans;
+  }
+}
