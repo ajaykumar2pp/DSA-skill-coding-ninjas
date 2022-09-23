@@ -1,0 +1,69 @@
+Array Cost
+Send Feedback
+Given an array arr of N integers, we have to remove the elements from the array such that removal of each ith indexed element costs us the arr[i].
+For removal of two elements from the array, we get to remove one element for free but the free element should be less than the two costing elements.
+The task is to find the minimum cost to remove all the elements from the array.
+Input Format:
+The first line of input contains the integer N.
+Each of the following N lines contains a single integer Ai, the array elements 
+Constraints:
+1 ≤ N ≤ 100000
+1 ≤ Ai ≤ 100000
+Time limit : 1 sec
+Output Format:
+The first and only line of output must contain the required minimal price .
+Sample Input 1:
+4
+3
+2
+3
+2 
+Sample Output 1:
+8
+Sample Input 2:
+6
+6
+4
+5
+5
+5
+5
+Sample Output 2:
+21
+
+code in java *****************************************************
+
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
+public class Solution {
+    public static int[] getArray(Scanner s)
+    {
+        int n = s.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0;i<n;i++)
+        {
+            arr[i] = s.nextInt();
+        }
+        return arr;
+    }
+	public static void main (String[] args) {
+	 
+	   Scanner s = new Scanner(System.in);
+        int [] arr = getArray(s);
+        Integer[] ob = new Integer[arr.length];
+        for(int ctr = 0;ctr<arr.length;ctr++)
+        {
+            ob[ctr] = Integer.valueOf(arr[ctr]);
+        }
+        Arrays.sort(ob,Collections.reverseOrder());
+        int sol = 0;
+        for(int i = 0;i<ob.length;i++)
+        {
+            if(i%3 == 2) continue;
+            sol+=ob[i];
+        }
+        System.out.println(sol);
+	}
+}
