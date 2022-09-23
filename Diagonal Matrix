@@ -1,0 +1,55 @@
+code in java *******************************************
+
+import java.util.Arrays;
+public class solution {
+
+	public static void printInDiagonalForm(int[][] arr) {
+        
+        boolean up = true;
+        int rowlen = arr.length;
+        int collen = arr[0].length;
+        int[] ans = new int[rowlen*collen];
+        int row = 0;
+        int col = 0;
+        int n = 0;
+        while(n<rowlen*collen){
+            ans[n] = arr[row][col];            
+            ++n; 
+            if(up){
+                if(col==collen-1){
+                    up = false;
+                    ++row;
+                    continue;
+                }        
+                if(row==0){
+                    up = false;
+                    ++col;
+                    continue;
+                }
+                //no flips
+                --row;
+                ++col;
+                continue;
+            }else{
+                if(row==rowlen-1){
+                    up = true;
+                    ++col;
+                    continue;
+                }
+                if(col==0){
+                    up = true;
+                    ++row;
+                    continue;
+                }
+                //no flips
+                ++row;
+                --col;
+            }     
+        }
+        //return ans;
+        for(int i = 0; i < ans.length; i++){
+            System.out.print(ans[i] + " ");
+        }
+    }
+}
+       
