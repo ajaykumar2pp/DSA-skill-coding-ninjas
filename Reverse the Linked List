@@ -1,0 +1,26 @@
+code in java
+****************************************************
+
+public class Solution{
+    public static Node reverse(Node head,int k)
+    {
+        Node prev=null;
+        Node curr=head;
+        Node next=null;
+        int count=0;
+        while(count<k && curr!=null)
+        {
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+            count++;
+        
+        }
+        if(next!=null)
+        {
+            head.next=reverse(next,k);
+        }
+        return prev;
+    }
+}
