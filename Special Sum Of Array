@@ -1,0 +1,28 @@
+code in java 
+**************************************************************************
+
+public class solution {
+
+	public static int sum(int arr[])
+	{
+        int sum = 0;
+        for(int i=0;i<arr.length;i++){
+            sum=sum+arr[i];
+        }
+        if(sum <10) return sum;
+        int temp = sum;
+        int singleDigitSum=0;
+        while(true){
+            while(temp>0){
+                singleDigitSum += temp%10;
+                temp=temp/10;
+            }
+            if(singleDigitSum<10){
+                return singleDigitSum;
+            }else{
+                temp=singleDigitSum;
+                singleDigitSum=0;
+            }
+            }
+            }
+        }
