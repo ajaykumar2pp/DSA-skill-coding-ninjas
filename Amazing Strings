@@ -1,0 +1,115 @@
+Amazing Strings
+Shrey has just arrived in the city. When he entered the city, he was given two strings. Now, after arriving at his college, his professor gave him an extra string. To check his intelligence, his professor told him to check if the third string given to him has all the characters of the first and second strings in any order. Help Shrey before his professor scolds him. He has to answer “YES” if all characters are present else “NO”.
+Example: ‘HELLO’ and ‘SHREY’ are two initial strings, and his professor gave him ’HLOHEELSRY’. So, here all the characters are present, so he has to say “YES”.
+Note: The strings contain only uppercase Latin characters.
+Input Format:
+The first line contains a single integer ‘T’ representing the number of test cases. 
+
+The first line of each test case contains three strings, and the first two strings, i.e. ‘FIRST’ and ‘SECOND’ are the strings which he was given at the beginning, and the third string is ‘THIRD’, which was given by the professor.
+Output Format:
+For each test case, you have to return “YES” if all characters are present in the third string of the first and second strings; else, return “NO”.
+
+ Print the output of each test case in a separate line.
+Note:
+You don’t need to print anything; It has already been taken care of.
+Constraints:
+1 <= T <= 10^2
+1 <= |FIRST|, |SECOND|, |THIRD| <= 10^5
+
+Time Limit: 1 sec
+Sample Input 1:
+2
+HI HEY EIHYH
+ALL GOOD ADOLLG
+Sample Output 1:
+YES
+NO
+Explanation For Sample Input 1:
+In the first test case, the string ‘THIRD’ has all the characters present in the strings ‘FIRST’ and ‘SECOND’. So, we will return “YES”.
+
+In the second test case, the strings ‘FIRST’ and ‘SECOND’ combined has 1 A, 2 L, 1 G, 2 O and 1 D. While the string ‘THIRD’ has 1 A, 2 L, 1 G, 1 O and 1 D and So, it has one character less than the combined ‘FIRST’ and ‘SECOND’. Thus, we will return “NO”.
+Sample Input 1:
+2
+CODING NINJA NINCODINGJA
+YES NO NEEOOYS
+Sample Output 1:
+YES
+NO
+Explanation For Sample Input 1:
+In the first test case, the string ‘THIRD’ has all the characters present in the strings ‘FIRST’ and ‘SECOND’. So, we will return “YES”.
+
+In the second test case, the strings ‘FIRST’ and ‘SECOND’ combined have 1 N, 1 Y, 1 E, 1 S and 1 O. While the string ‘THIRD’ has 1 N, 1 Y, 2 E, 1 S and 2 O and So, it has one character more than ‘FIRST’ and ‘SECOND’. Thus, we will return “NO”.
+
+/////////////////////                            code in java     ///////////////////////////
+
+
+
+
+public class Solution {
+
+    public static String amazingStrings(String first, String second, String third) {
+    
+        // Declaring the size of string 'C' which will be used a lot of time later in code.
+        int sizeOfThird = third.length();
+        
+        // Declaring visited array of size equal to length of string 'C' which will
+        // track if that position is visited or not.
+        int visited[] = new int[sizeOfThird];
+    
+        // Iterating through each character in string 'A'.
+        for (int i = 0; i < first.length(); i++) {
+            
+            // Declaring a temporary variable just to keep track that for this
+            // particular character any corresponding character is visited or not.
+            int temp = 0;
+            
+            // Iterating through each character in string 'C' to find corresponding character.
+            for (int j = 0; j < sizeOfThird; j++) {
+                
+                // If current character matches with string 'A''s charcter and also
+                // current position is not visited then we will make it visited.
+                if ((first.charAt(i) == third.charAt(j)) && (visited[j] == 0)) {
+                    visited[j] = 1;
+                    temp = 1;
+                    break;
+                }
+            }
+            
+            // if no character is found in string 'C' then we will return "NO".
+            if (temp == 0) {
+                return "NO";
+            }
+            
+        }
+    
+        // All things will be done for string 'B' also like string 'A'.
+        for (int i = 0; i < second.length(); i++) {
+            int temp = 0;
+            for (int j = 0; j < sizeOfThird; j++) {
+                if (second.charAt(i) == third.charAt(j) && visited[j] == 0) {
+                    visited[j] = 1;
+                    temp = 1;
+                    break;
+                }
+            }
+            
+            if (temp == 0) {
+                return "NO";
+            }
+        }
+    
+        // Atlast we will check that either all the character in string 'C' are visited or not.
+        for (int i = 0; i < sizeOfThird; i++) {
+            
+            // If any character is not visited it means that it is extra in string 'C'
+            // and so, we will return "NO".
+            if (visited[i] == 0) {
+                return "NO";
+            }
+        }
+        
+        // If every thing matches then we can say that string 'C' is made by combing 'A' and 'B'.
+        return "YES";
+    
+    }
+}
