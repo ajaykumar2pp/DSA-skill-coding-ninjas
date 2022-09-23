@@ -1,0 +1,63 @@
+ code in java  
+ **************************************
+ 
+ import java.util.* ; 
+public class Solution {
+    public static List<List<Integer>> quadruplets(int[] nums, int target) 
+    {
+        List<List<Integer>> result = new ArrayList<>();
+        
+        int size = nums.length;
+        
+        if(nums == null || size < 4)
+            return result;
+        
+        Arrays.sort(nums);
+        
+        for(int i=0; i<size -3; i++)
+        {
+            if(i > 0 && nums[i] == nums[i-1])
+                continue;
+            
+            for(int j=i+1; j<size-2; j++)
+            {
+                if(j > i+1 && nums[j] == nums[j-1])
+                    continue;
+                
+                int left = j+1;
+                int right = size-1;
+                
+                while(left < right)
+                {
+                    long sum = (long) nums[i] + nums[j] + nums[left] + nums[right];
+                    
+                    if(sum == (long)target)
+                    {
+                        List<Integer> sub_ans = new ArrayList<>();
+                        sub_ans.add(nums[i]);
+                        sub_ans.add(nums[j]);
+                        sub_ans.add(nums[left]);
+                        sub_ans.add(nums[right]);
+                        
+                        result.add(sub_ans); 
+                        left++;
+                        right--;
+                                     
+                        while(left < right && nums[left] == nums[left - 1])
+                            left++;
+                            
+                        while(left < right && nums[right] == nums[right + 1])
+                            right--;
+                    }
+                     else if(sum > target)
+                           right--;
+                      
+                     else
+                           left++;          
+                                     
+                }
+            }
+        }
+                 return result;
+  }
+}
