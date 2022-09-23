@@ -1,0 +1,33 @@
+code in java ************************************
+
+import java.util.Set;
+import java.util.HashSet;
+
+public class Solution {
+
+    private static int countSpecialNodes(TreeNode<Integer> root, Set<Integer> distinctElements) {
+  
+        if (distinctElements.contains(root.data)) {
+            return 0;
+        }
+
+        distinctElements.add(root.data);
+
+        int specialNodesInChild = 0;
+
+        int childCount = root.numChildren();
+
+        for (int i = 0; i < childCount; i++) {
+            specialNodesInChild += countSpecialNodes(root.getChild(i), distinctElements);
+        }
+
+        distinctElements.remove(root.data);
+
+        return (1 + specialNodesInChild);
+    }
+
+    public static int countSpecialNodes(TreeNode<Integer> root) {
+        Set<Integer> distinctElements = new HashSet<>();
+        return countSpecialNodes(root, distinctElements);
+    }
+}
