@@ -1,0 +1,49 @@
+In Between Linked Lists
+You are given two linked lists: list1 and list2 of sizes n and m respectively.
+Remove list1's nodes from the ath node to the bth node, and put list2 in their place.
+Input Format
+First line of input contains list1
+Second line of input contains two space separated integers representing a and b.
+Third line of input contains list2
+Constraints
+3 <= list1.length <= 10^4
+1 <= a <= b < list1.length - 1
+1 <= list2.length <= 10^4
+Sample Input 1:
+0 1 2 3 4 5 -1
+3 4
+101 102 103 -1
+Sample Output 1:
+0 1 2 101 102 103 5
+
+
+
+////////////////////////////////        code in c++              ////////////////////////////////
+
+
+
+
+class Node {
+public:
+    int data;
+    Node* next;
+};
+Node *mergeInBetween(Node *list1, int a, int b, Node *list2) 
+    {
+     Node *tail = list2, *cur = list1, *s,*e;
+        while(tail->next) {
+            tail = tail->next;
+        }
+        for(int i = 1; i < a; i++) {
+            cur = cur->next;
+        }
+        s = cur;
+        for(int i = 0; i <= b-a; i++) {
+            cur = cur->next;
+        }
+        e = cur;
+        s->next = list2;
+        tail->next = e->next;
+        return list1;
+        
+}
