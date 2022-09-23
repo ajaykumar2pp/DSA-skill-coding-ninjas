@@ -1,0 +1,51 @@
+Game of numbers
+Send Feedback
+Given are two numbers X and Y. Starting from number X, we can perform two functions on the number:
+Double: Multiply the number by 2, or
+Decrement: Subtract 1 from the number.
+Find the minimum number of operations required to convert X to Y.
+Input Format:
+First line contains two space separated integers X and Y.
+Output Format:
+Print the minimum number of operations required to get Y, starting from X.
+Constraints:
+1 <= X,Y <= 10^9
+Sample Input 1:
+2 3
+Sample Output 1:
+2
+Explanation:
+Use double operation and then decrement operation {2 -> 4 -> 3}.
+Sample Input 2:
+1024 1
+Sample Output 2:
+1023
+
+code in java  ***********************************************************
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+public class Solution {
+	public static void main (String[] args) {
+	    // Write your code here
+        // Take input and print desired output
+	  Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+        int y = sc.nextInt();
+        System.out.println(minOperations(x,y));
+	}
+     static int minOperations(int x, int y)
+    {
+        if (x == y)
+            return 0;
+        if (x <= 0 && y > 0)
+            return -1;
+        if (x > y)
+            return x - y;
+        if (y % 2 != 0)
+            return 1 + minOperations(x, y + 1);
+        else
+            return 1 + minOperations(x, y / 2);
+    }
+}
