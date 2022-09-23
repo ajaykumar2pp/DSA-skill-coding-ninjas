@@ -1,0 +1,39 @@
+code in java 
+************************************************
+
+class Solution {
+	static int sum = 0;
+
+	private static void applyReverseInOrder(TreeNode<Integer> root) {
+		if (root == null) {
+			return;
+		}
+
+		// Go to the right subtree.
+		applyReverseInOrder(root.right);
+
+		// Store value of the root node.
+		int rootVal = root.val;
+
+		/*
+		   Replace the value at root node with the sum of all the nodes which have value
+		   greater than the root.val.
+		*/
+		root.val = sum;
+
+		// Store the sum.
+		sum = sum + rootVal;
+
+		// Go to the left sub tree.
+		applyReverseInOrder(root.left);
+	}
+
+	public static TreeNode<Integer> convertBstToGreaterSum(TreeNode<Integer> root) {
+
+		// Apply reverse inorder.
+		sum = 0;
+		applyReverseInOrder(root);
+		return root;
+	}
+
+}
