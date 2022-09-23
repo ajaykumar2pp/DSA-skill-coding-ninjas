@@ -1,0 +1,37 @@
+code in java 
+***************************************************
+
+import java.util.ArrayList;
+import java.util.Stack;
+
+public class Solution {
+	public static boolean validStackPermutation(ArrayList<Integer> first, ArrayList<Integer> other) {
+		// Make a stack to store the elements.
+		Stack<Integer> st = new Stack<Integer>();
+
+		// Pointer to point the elements in the 'OTHER' array.
+		int p = 0;
+
+		// Iterate over the first array.
+		for (int i = 0; i < first.size(); i++) {
+			// Push each element of first array into the 'OTHER' array.
+			st.push(first.get(i));
+
+			while (!st.empty() && (other.get(p).intValue() == st.peek().intValue())) {
+				// Increment the pointer.
+				p++;
+
+				// Pop the top element.
+				st.pop();
+			}
+		}
+		// If the stack is empty, return "YES".
+		if (st.empty()) {
+			return true;
+		}
+		// Otherwise, return "NO".
+		else {
+			return false;
+		}
+	}
+}
