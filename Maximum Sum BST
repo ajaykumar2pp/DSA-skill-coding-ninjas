@@ -1,0 +1,71 @@
+code in  java **********************************************
+
+public class Solution {
+
+    static int subTreeSum(BinaryTreeNode<Integer> curNode) {
+
+        if (curNode == null)
+        {
+            return 0;
+        }
+  
+        int curSum = curNode.data;
+
+        curSum += subTreeSum(curNode.left);
+
+        curSum += subTreeSum(curNode.right);
+
+        return curSum;
+    }
+
+    static int isBST(BinaryTreeNode<Integer> curNode, int low, int high) {
+   
+        if (curNode == null)
+        {
+            return 1;
+        }
+            
+
+        if (curNode.data < low || curNode.data > high)
+        {
+            return 0;
+        }
+           
+                                   // Check right child
+        if(isBST(curNode.left, low, curNode.data - 1) == 1&&isBST(curNode.right, curNode.data + 1, high)==1)
+        {
+            return 1;
+        }
+
+        return 0;
+        
+    }
+
+    static void traverseTree(BinaryTreeNode<Integer> curNode, int[] ans) {
+
+        if (isBST(curNode, Integer.MIN_VALUE, Integer.MAX_VALUE)==1) {
+
+            int maxSum = subTreeSum(curNode);
+
+            ans[0] = Math.max(ans[0], maxSum);
+        }
+
+        if (curNode.left != null)
+        {
+            traverseTree(curNode.left, ans);
+        }
+
+        if (curNode.right != null)
+            traverseTree(curNode.right, ans);
+    }
+
+    static int maxSumBST(BinaryTreeNode<Integer> root) {
+
+        int[] ans = { 0 };
+
+         traverseTree(root, ans);
+
+        return ans[0];
+    }
+
+}
