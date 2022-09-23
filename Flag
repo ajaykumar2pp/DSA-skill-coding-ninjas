@@ -1,0 +1,22 @@
+code in java ************************************
+
+public class Solution {
+
+	public static long find_Ways(int N)
+	{
+        /* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+		 */
+        
+         if(N==1 || N==2) return 2;
+    
+    long ans=find_Ways(N-1)+find_Ways(N-2);
+    
+    return ans;
+    
+
+	}
+}
