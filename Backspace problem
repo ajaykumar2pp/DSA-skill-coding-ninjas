@@ -1,0 +1,118 @@
+Backspace problem
+Send Feedback
+Given a string consisting of lower case characters and hashes(#) where each hash represents a back space .
+Find the resultant string after removing the backspaces from the given input string.
+(Note : there will be no condition where we use backspace on empty string )
+Example :
+Input: xy#z
+Output: xz
+
+code in java    *************************************
+
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Solution {
+
+    static String backspace(String str) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if (ch == '#') {
+                if (sb.length() > 0)
+                    sb.deleteCharAt(sb.length() - 1);
+            } else {
+                sb.append(ch);
+            }     
+        }
+
+        return sb.toString();
+    }
+
+    static boolean backspaceCompare(String S, String T) {
+        
+        if (S.equals(T))
+            return true;
+        return backspace(S).equals(backspace(T));
+    }
+    static boolean backspaceCompare0(String S, String T) {
+        Stack<Character> sStack = new Stack<Character>();
+        Stack<Character> tStack = new Stack<Character>();
+        for (char ch : S.toCharArray()) {
+            if (ch != '#')
+                sStack.push(ch);
+            else if (!sStack.isEmpty())
+                sStack.pop();
+        }
+        for (char ch : T.toCharArray()) {
+            if (ch != '#') 
+                tStack.push(ch);
+            else if (!tStack.isEmpty())
+                tStack.pop();
+        }
+
+        return sStack.equals(tStack);
+    }
+    static boolean backspaceCompare1(String S, String T) {
+        if (S == null && T == null)
+            return true;
+        else if (S == null || T == null)
+            return false;
+        else if (S.length() == 0 && T.length() == 0)
+            return true;
+        else if (S.length() == 0 || T.length() == 0)
+            return false;
+        int s       = S.length() - 1;
+        int t       = T.length() - 1;
+        int delete  = 0;
+        for ( ; s >= 0 || t >= 0; ) {
+            for (delete = 0; s >= 0 && S.charAt(s) == '#'; delete++, s--);
+            for ( ; delete > 0 && s >= 0; s--, delete--) {
+                if (S.charAt(s) == '#') {
+                    delete++; s--;
+                }
+            }
+            for (delete = 0; t >= 0 && T.charAt(t) == '#'; delete++, t--);
+            for ( ; delete > 0 && t >= 0; t--, delete--) {
+                if (T.charAt(t) == '#') {
+                    delete++; t--;
+                }
+            }
+            while (s >= 0 && t >= 0 && S.charAt(s) == T.charAt(t) && S.charAt(s) != '#') {
+                s--; t--;
+            }
+            if (s >= 0 && t >= 0 && 
+                S.charAt(s) != T.charAt(t) && 
+                S.charAt(s) != '#' && T.charAt(t) != '#')
+                return false;
+        }
+
+        
+        return (s == t);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String S = sc.nextLine().trim();
+        String T = sc.nextLine().trim();
+        sc.close();
+        System.out.print("main <<<      ");
+        for (int i = 0; i < S.length(); i++)
+            System.out.print("" + i);
+        System.out.println();
+
+        System.out.println("main <<< S ==>" + S + "<==");
+        System.out.println("main <<< T ==>" + T + "<==");
+
+        System.out.print("main <<<      ");
+        for (int i = 0; i < T.length(); i++)
+            System.out.print("" + i);
+        System.out.println();
+        System.out.println("main <<< backspaceCompare0: " + backspaceCompare0(S, T));
+        System.out.println("main <<< backspaceCompare1: " + backspaceCompare1(S, T));
+        System.out.println("main <<<  backspaceCompare: " + backspaceCompare(S, T));
+    }
+}
