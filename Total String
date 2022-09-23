@@ -1,0 +1,18 @@
+ code in java *****************************************
+ 
+ public class Solution{
+
+    public static int countStrings(int n){
+        
+
+        // Write your code here
+        if(n==1) return 3;
+        if(n==2)  return 8;
+           long m=n;
+           long temp = ((m % 1000000007) * ((m * m)% 1000000007 - 1)/2)% 1000000007;
+           
+           long ans =((1 +2 *m)% 1000000007 + temp)% 1000000007;
+           return (int)ans;
+        
+    }
+}
