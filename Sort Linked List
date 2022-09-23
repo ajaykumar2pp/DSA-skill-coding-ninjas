@@ -1,0 +1,127 @@
+Sort Linked List
+Send Feedback
+Given a Linked List, which has nodes in alternating ascending and descending orders. Sort the list efficiently and space complexity should be O(1).
+You just need to return the head of sorted linked list, don't print the elements.
+Input format :
+Line 1 : Linked list elements of length L (separated by space and terminated by -1)
+Line 2 : Integer n
+Output format :
+Updated list elements (separated by space)
+Sample Input 1 :
+10 40 53 30 67 12 89 -1
+Sample Output 1 :
+10 12 30 40 53 67 89
+
+code in java ***********************************************
+
+public class Solution
+{
+
+  public static LinkedListNode < Integer >
+    mergeTwoSortedLinkedLists (LinkedListNode < Integer > head1,
+			       LinkedListNode < Integer > head2)
+  {
+    LinkedListNode < Integer > t1 = head1, t2 = head2, head = null, tail =
+      null;
+
+    if (head1 == null)
+      {
+	return head2;
+      }
+    if (head2 == null)
+      {
+	return head1;
+      }
+
+    if (t1.data <= t2.data)
+      {
+	head = t1;
+	tail = t1;
+	t1 = t1.next;
+      }
+    else
+      {
+	head = t2;
+	tail = t2;
+	t2 = t2.next;
+      }
+
+    while (t1 != null && t2 != null)
+      {
+	if (t1.data <= t2.data)
+	  {
+	    tail.next = t1;
+	    tail = t1;
+	    t1 = t1.next;
+	  }
+	else
+	  {
+	    tail.next = t2;
+	    tail = t2;
+	    t2 = t2.next;
+	  }
+
+      }
+
+    if (t1 == null)
+      {
+	tail.next = t2;
+      }
+    else
+      tail.next = t1;
+
+
+    return head;
+  }
+
+  public static LinkedListNode < Integer > midPoint (LinkedListNode <
+						     Integer > head)
+  {
+    if (head == null)
+      {
+	return head;
+      }
+    else
+      {
+	LinkedListNode < Integer > slow = head;
+	LinkedListNode < Integer > fast = head;
+
+	while (fast.next != null && fast.next.next != null)
+	  {
+	    fast = fast.next.next;
+	    slow = slow.next;
+	  }
+	return slow;
+      }
+
+  }
+
+  public static LinkedListNode < Integer > mergeSort (LinkedListNode <
+						      Integer > head)
+  {
+    if (head == null || head.next == null)
+      {
+	return head;
+      }
+
+    LinkedListNode < Integer > slow = midPoint (head);
+    LinkedListNode < Integer > head1 = head;
+    LinkedListNode < Integer > head2 = slow.next;
+    slow.next = null;
+
+
+    LinkedListNode < Integer > h1 = mergeSort (head1);
+    LinkedListNode < Integer > h2 = mergeSort (head2);
+
+    return mergeTwoSortedLinkedLists (h1, h2);
+
+  }
+
+  public static LinkedListNode < Integer > sort (LinkedListNode < Integer >
+						 head)
+  {
+    return mergeSort (head);
+
+  }
+
+}
