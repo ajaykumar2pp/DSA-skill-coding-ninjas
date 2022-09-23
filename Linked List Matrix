@@ -1,0 +1,80 @@
+Linked List Matrix
+Given a Matrix mat of N*N size, write a program that constructs a 2D linked list representation of the given matrix.
+Input : 2D matrix
+1 2 3
+4 5 6
+7 8 9
+Output :
+1 -> 2 -> 3 -> NULL
+|    |    |
+v    v    v
+4 -> 5 -> 6 -> NULL
+|    |    |
+v    v    v
+7 -> 8 -> 9 -> NULL
+|    |    |
+v    v    v
+NULL NULL NULL
+Input Format :
+ The first line takes an integer N as input.
+ The next line input n*n integers denoting the matrix.
+Output format:
+Print the matrix using the linked list header.
+Sample Input:
+3
+1 2 3 4 5 6 7 8 9
+Sample Output:
+1 2 3
+4 5 6
+7 8 9
+
+////////////////////////////////////code in java     ////////////////////////////////////////////
+
+
+
+public class Solution{
+    static Node construct(int arr[][],int n)
+    {
+     
+                Node mainHead = null;
+ 
+        Node[] head = new Node[n];
+        Node rightTemp = new Node(0), newptr;
+ 
+
+        for(int i = 0; i < n; i++)
+        {
+ 
+            head[i] = null;
+ 
+            for(int j = 0; j < n; j++)
+            {
+                newptr = new Node(arr[i][j]);
+
+                if(mainHead == null)
+                    mainHead = newptr;
+                if(head[i] == null)
+                    head[i] = newptr;
+                else
+                    rightTemp.right = newptr;
+ 
+                rightTemp = newptr;
+            }
+        }
+
+        for(int i = 0; i < n - 1; i++)
+        {
+            Node temp1 = head[i], temp2 = head[i + 1];
+ 
+            while(temp1 != null && temp2 != null)
+            {
+                temp1.down = temp2;
+                temp1 = temp1.right;
+                temp2 = temp2.right;
+            }
+        }
+        return mainHead;
+       
+    }
+
+}
