@@ -1,0 +1,27 @@
+code in java 
+*************************************************
+
+import java.io.*;
+import java.util.*;
+public class Solution 
+{
+    static void series (int A, int X, int n)
+    {
+        int term = (int)Math.pow(A,n);
+        System.out.print(term+" ");
+        for(int i=1;i<=n;i++)
+        {
+            term=term*X*(n-i+1)/(i*A);
+            System.out.print(term+" ");
+        }
+    }
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        int A= sc.nextInt();
+        int X= sc.nextInt();
+        int n = sc.nextInt();
+        series(A,X,n);
+        
+    }
+}
