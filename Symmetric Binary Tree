@@ -1,0 +1,39 @@
+Symmetric Binary Tree
+Given a binary tree, check whether it is symmetric around its center at every level. That means, return true if the given binary tree and its mirror is exactly same. Otherwise return false.
+Input Format :
+Nodes in level order form (separated by space). If any node does not have left or right child, take -1 in its place. 
+Output Format :
+Return true or false.
+Constraints :
+1 <= Number of Nodes <= 10^5
+Sample Input 1 :
+1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+Sample Output 1 :
+false
+Sample Input 2 :
+1 2 2 3 4 4 3 -1 -1 -1 -1 -1 -1 -1 -1
+Sample Output 2 :
+true
+Sample Input 3 :
+1 2 2 -1 3 -1 3 -1 -1 -1 -1
+Sample Output 3 :
+false
+
+////////////////////////////////////////    code in java           ///////////////////////////
+
+
+public class Solution {
+     static boolean isMirror(BinaryTreeNode<Integer> node1, BinaryTreeNode<Integer> node2)
+    {
+        if (node1 == null && node2 == null)
+            return true;
+        if (node1 != null && node2 != null
+            && node1.data == node2.data)
+            return (isMirror(node1.left, node2.right)
+                    && isMirror(node1.right, node2.left));
+        return false;
+    }
+	public static boolean isSymmetric(BinaryTreeNode<Integer> root){
+	 return isMirror(root, root);   
+	}
+}
