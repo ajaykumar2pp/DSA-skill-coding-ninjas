@@ -1,0 +1,102 @@
+Merge Two BSTs
+Send Feedback
+Given two binary search trees ,merge the two given balanced BSTs into a balanced binary search tree.
+Note: You just have to return the root of the balanced BST.
+Give solution of O(m+n) time complexity.
+Input format :
+Line 1 :  Elements in level order form of first tree (separated by space)
+(If any node does not have left or right child, take -1 in its place)
+Line 2: Elements in level order form of second tree (separated by space)
+(If any node does not have left or right child, take -1 in its place)
+Output Format :
+Print the inorder form of new BST
+Sample Input 1:
+2 1 3 -1 -1 -1 -1
+4 -1 -1
+Sample Output 1:
+ 1 2 3 4 
+ 
+ code in java   ********************************************
+ 
+ import java.util.*;
+public class solution{
+    
+    static void inorder(BinaryTreeNode<Integer>node)
+    {
+        if(node==null)
+        return;
+        inorder(node.left);
+        System.out.print(node.data+" ");
+        inorder(node.right);
+    }
+    public static ArrayList<Integer>storeInorderUtil(BinaryTreeNode<Integer>node,ArrayList<Integer>list)
+    {
+        if(node==null)
+        return list;
+        storeInorderUtil(node.left,list);
+        list.add(node.data);
+        storeInorderUtil(node.right,list);
+        return list;
+        
+    }
+    static ArrayList<Integer>storeInorder(BinaryTreeNode<Integer>node)
+    {
+        ArrayList<Integer>list1=new ArrayList<>();
+        ArrayList<Integer>list2=storeInorderUtil(node,list1);
+        return list2;
+    }
+    static ArrayList<Integer>merge(ArrayList<Integer>list1,ArrayList<Integer>list2, int m, int n)
+    {
+        ArrayList<Integer>list3=new ArrayList<>();
+        int i=0;
+        int j=0;
+        while(i<m && j<n)
+        {
+            if(list1.get(i)<list2.get(j))
+            {
+                list3.add(list1.get(i));
+                i++;
+                
+            }else
+            {
+                list3.add(list2.get(j));
+                j++;
+            }
+        }
+        while(i<m)
+        {
+            list3.add(list1.get(i));
+            i++;
+        }
+        while(j<n)
+        {
+            list3.add(list2.get(j));
+            j++;
+        }
+        return list3;
+    }
+    static BinaryTreeNode<Integer>ALtoBST(ArrayList<Integer>list, int start, int end)
+    {
+        if(start>end)
+        return null;
+        int mid= (start+end)/2;
+        BinaryTreeNode<Integer> node= new BinaryTreeNode(list.get(mid));
+        node.left=ALtoBST(list,start,mid-1);
+        node.right=ALtoBST(list, mid+1,end);
+        return node;
+    }
+    static BinaryTreeNode<Integer>mergeTrees(BinaryTreeNode<Integer>node1,BinaryTreeNode<Integer>node2)
+    {
+        ArrayList<Integer>list1=storeInorder(node1);
+        ArrayList<Integer>list2=storeInorder(node2);
+        ArrayList<Integer>list3=merge(list1,list2,list1.size(),list2.size());
+        BinaryTreeNode<Integer>node=ALtoBST(list3,0,list3.size()-1);
+        return node;
+    }
+    static void printMergeTrees(BinaryTreeNode<Integer>root1,BinaryTreeNode<Integer>root2)
+    {
+        BinaryTreeNode<Integer>node=solution.mergeTrees(root1,root2);
+        inorder(node);
+    }
+    
+}
