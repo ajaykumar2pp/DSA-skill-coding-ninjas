@@ -1,0 +1,63 @@
+Jumping Numbers
+Send Feedback
+Given a number x, print all the jumping numbers below or equal to x. A number is called a jumping number if for a number all the adjacent digits differ by 1. All single digit numbers are also jumping numbers.
+Eg. 432345, 32, 543, 989, 12, 21 are jumping numbers whereas 843, 485, 9348 are not.
+Input Format :
+An integer x.
+Output Format :
+All the jumping numbers smaller than or equal to x, separated by space and generated in increasing order of most significant digit.
+Input Constraints :
+1 <= x <= 10^5
+Sample Input 1 :
+10
+Sample Output 1 :
+0 1 10 2 3 4 5 6 7 8 9
+Sample Input 2 :
+50
+Sample Output 2 :
+0 1 12 10 2 23 21 3 34 32 4 45 43 5 6 7 8 9
+
+code in java   ***********************************************
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Solution
+{
+  public static void showJumpingNos (int x)
+  {
+    System.out.print ("0 ");
+    for (int i = 1; i <= 9 && i <= x; i++)
+      {
+	bfsHelper (x, i);
+      }
+  }
+  private static void bfsHelper (int x, int num)
+  {
+    Queue < Integer > q = new LinkedList <> ();
+    q.add (num);
+    while (!q.isEmpty())
+    {
+      num = q.remove ();
+      if (num <= x)
+	{
+	  System.out.print (num  + " ");
+	  int last = num % 10;
+	  if (last == 0)
+	    {
+	      q.add ((num * 10) + (last + 1));
+	    }
+	  else if (last == 9)
+	    {
+	      q.add ((num * 10) + (last - 1));
+	    }
+	  else
+	    {
+	      q.add ((num * 10) + (last + 1));
+	      q.add ((num * 10) + (last - 1));
+	    }
+	}
+    }
+  }
+}
