@@ -1,0 +1,116 @@
+Strange island
+Send Feedback
+A popular tourist destination country is situated on a breathtakingly beautiful archipelago constantly bathed by the sun. The country's residents are very proud of their numerous islands. However, global warming has them very worried: raising sea levels are resulting in rapidly increasing loss of dry land, which is diminishing the beauty of the archipelago.
+The map of the archipelago is represented by a grid of R by C squares (characters). The character 'X' (uppercase letter x) represents dry land, while '.' (period) represents sea. It has been estimated that, in fifty years, sea will have flooded every square of land that is currently surrounded by sea on three or on all four sides (north, south, east, west). Assume that all squares outside the map (along the edges) are covered by sea.
+Your task is computing the map of the archipelago in fifty years (after the described sea level rise).
+Since there will probably be less land than today, you shouldn't print out the whole map, but only its smallest rectangular part that contains all land squares. It is guaranteed that at least one square of land will remain in all test cases.
+Input Format:
+The first line of input contains two positive integers, R and C, the dimensions of the current map.
+Each of the following R lines contains C characters. These R by C characters represent the current map of the archipelago.
+Constraints:
+1 ≤ R, C ≤ 10
+Time limit: 1 sec
+Output Format:
+The output must contain an appropriate number of lines representing the required rectangular part of the future (flooded) map.
+Sample Input 1:
+5 3
+...
+.X.
+.X.
+.X.
+...
+Sample Output 1:
+X
+Sample Input 2:
+3 10
+..........
+..XXX.XXX.
+XXX....... 
+Sample Output 2:
+.XX...X
+XX.....
+
+
+code in java ***********************************************
+
+import java.util.*;
+import java.util.Scanner;
+public class Main {
+	
+	public static void main(String[] args) {
+		/* Your class should be named Main.
+ 			* Read input as specified in the question.
+ 			* Print output as specified in the question.
+		*/
+		// Write your code here
+        Scanner s = new Scanner(System.in);
+        int row = s.nextInt();
+        int col = s.nextInt();
+        Character ans[][] = new Character[row+2][col+2];
+        for(int i=0; i<row+2; i++){
+            for(int j=0; j<col+2; j++){
+                ans[i][j] = '.';
+            }
+        }
+        for(int i=1; i<row+1; i++){
+            String sn = s.next();
+            for(int j=1; j<col+1; j++){
+                char c = sn.charAt(j-1);
+                ans[i][j] = c;
+            }
+        }
+        for(int i=1; i<row+1; i++){
+            for(int j=1; j<col+1; j++){
+                int count=0;
+                if(ans[i][j]=='X'){
+                    if(ans[i+1][j]=='.'){
+                        count++;
+                    }
+                    if(ans[i][j+1]=='.'){
+                        count++;
+                    }
+                    if(ans[i-1][j]=='.'){
+                        count++;
+                    }
+                    if(ans[i][j-1]=='.'){
+                        count++;
+                    }
+                    if(count>=3){
+                        ans[i][j] = '1';
+                    }
+                }
+            }
+        }
+        int rowstart=Integer.MAX_VALUE;
+        int rowend=Integer.MIN_VALUE;
+        int colstart=Integer.MAX_VALUE;
+        int colend=Integer.MIN_VALUE;
+        for(int i=1; i<row+1; i++){
+            for(int j=1; j<col+1; j++){
+                if(ans[i][j]=='1'){
+                    ans[i][j]='.';
+                }
+                if(ans[i][j]=='X'){
+                    if(i<rowstart){
+                        rowstart=i;
+                    }
+                    if(i>rowend){
+                        rowend=i;
+                    }
+                    if(j<colstart){
+                        colstart=j;
+                    }
+                    if(j>colend){
+                        colend=j;
+                    }
+                }
+            }
+        }
+        for(int i=rowstart; i<=rowend; i++){
+            for(int j=colstart; j<=colend; j++){
+                System.out.print(ans[i][j]);
+            }
+            System.out.println();
+        }
+	}
+}
