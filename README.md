@@ -9,4 +9,4 @@
 ### ReactJS MCQ
 > ## Checkout the website link : https://reactjs-mcq-ajay.netlify.app/
 ### Operating System MCQ
-> ## Checkout the website link : 
+> ## Checkout the website link : https://operating-system-mcq.netlify.app/
